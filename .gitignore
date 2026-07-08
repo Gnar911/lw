@@ -1,0 +1,35 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Compiled files
+*.o
+*.so
+
+# Build / distribution
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+logs/
+
+# Database files
+*.db
+*.db3
+
+# Editors / IDEs
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.swp
+
+# Common unwanted files in this project
+ring_buf copy.py
+
+# Marked by user as unnecessary
+unecessary
