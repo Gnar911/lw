@@ -101,4 +101,56 @@ class QtEventLoopDispatcher:
         if self._notifier is not None:
             self.detach()
 
-        super().close()
+
+import multiprocessing as mp
+import os
+import sys
+import time
+
+from PySide6.QtCore import QCoreApplication, QTimer
+from lw.status_channel import StatusChannel
+
+# from your_module import StatusChannel, QtEventLoopDispatcher
+
+
+def producer(channel: StatusChannel):
+    for i in range(5):
+        print(f"[Producer] send {i}", flush=True)
+        channel.mc_send(i)
+        time.sleep(1)
+
+    print("[Producer] done", flush=True)
+    channel.mc_send(-1)
+
+
+def on_status(status: int):
+    print(f"[Qt] received {status}")
+
+    if status == -1:
+        print("[Qt] quitting")
+        QCoreApplication.quit()
+
+
+if __name__ == "__main__":
+    mp.set_start_method("spawn", force=True)
+
+    app = QCoreApplication(sys.argv)
+
+    channel = StatusChannel()
+
+    dispatcher = QtEventLoopDispatcher()
+    dispatcher.attach(channel, on_status)
+
+    proc = mp.Process(
+        target=producer,
+        args=(channel,),
+    )
+
+    proc.start()
+
+    app.exec()
+
+    proc.join()
+
+    dispatcher.close()
+    channel.close()
