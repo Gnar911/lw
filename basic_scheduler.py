@@ -62,8 +62,8 @@ import time
 from typing import Callable, Protocol
 
 from native_sdk.api import busy_spin_until as _native_busy_spin_until
-from can_service.config.cfg_types import EventDriven, WakeupMode
-from can_service.config.load_config import load_runtime_config
+# from can_service.config.cfg_types import EventDriven, WakeupMode
+# from can_service.config.load_config import load_runtime_config
 """ Cross platform Waiter"""
 from lw.waiter.event_loop_waiter import SelectEventLoopWaiter, create_event_loop_waiter 
 from lw.waiter.event_object import EventObject

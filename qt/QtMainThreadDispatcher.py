@@ -1,9 +1,10 @@
 from collections.abc import Callable
 
 from PySide6.QtCore import QObject, Signal
+from lw.MainThreadDispatcher import MainThreadDispatcher
 
 
-class QtMainThreadDispatcher(QObject):
+class QtMainThreadDispatcher(QObject, MainThreadDispatcher):
     _invoke = Signal(object)
 
     def __init__(self):

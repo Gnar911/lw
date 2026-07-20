@@ -45,7 +45,8 @@ class IPCChannel(WaitSource, ABC, Generic[T]):
     def receive(self) -> T:
         ...
 
-    @abstractmethod
-    def close(self) -> None:
-        ...
+    # ????
+    # @abstractmethod
+    # def close(self) -> None:
+    #     ...
 
